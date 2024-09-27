@@ -7,6 +7,7 @@ import unittest
 
 from 删除有序数组中的重复项2 import Solution as RD2
 from 多数元素 import Solution as ME
+from 跳跃游戏2 import  Solution as JP
 
 
 class TestSolution(unittest.TestCase):
@@ -22,6 +23,23 @@ class TestSolution(unittest.TestCase):
         result = solution.majorityElement(nums)
         self.assertEqual(result, 2)
 
+    def test_jump(self):
+        solution = JP()
+        nums = [2, 3, 1, 1, 4]
+        result = solution.jump(nums)
+        self.assertEqual(result, 2)
+
+    def test_jump2(self):
+        solution = JP()
+        nums = [2, 3, 0, 1, 4]
+        result = solution.jump(nums)
+        self.assertEqual(result, 2)
+
+    def test_jump3(self):
+        solution = JP()
+        nums = [1,2,1,1,1]
+        result = solution.jump(nums)
+        self.assertEqual(result, 3)
 
 if __name__ == '__main__':
     unittest.main()
