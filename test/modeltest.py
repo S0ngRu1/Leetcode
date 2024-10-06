@@ -8,6 +8,7 @@ import unittest
 from 删除有序数组中的重复项2 import Solution as RD2
 from 多数元素 import Solution as ME
 from 跳跃游戏2 import  Solution as JP
+from H指数 import Solution as H
 
 
 class TestSolution(unittest.TestCase):
@@ -40,6 +41,18 @@ class TestSolution(unittest.TestCase):
         nums = [1,2,1,1,1]
         result = solution.jump(nums)
         self.assertEqual(result, 3)
+    def test_hIndex(self):
+        solution = H()
+        citations = [3, 0, 6, 1, 5]
+        result = solution.hIndex(citations)
+        self.assertEqual(result, 3)
+
+    def test_hIndex2(self):
+        solution = H()
+        citations = [1, 3, 1]
+        result = solution.hIndex(citations)
+        self.assertEqual(result, 1)
+
 
 if __name__ == '__main__':
     unittest.main()
