@@ -9,7 +9,7 @@ from 删除有序数组中的重复项2 import Solution as RD2
 from 多数元素 import Solution as ME
 from 跳跃游戏2 import  Solution as JP
 from H指数 import Solution as H
-
+from 分糖果 import Solution as CA
 
 class TestSolution(unittest.TestCase):
     def test_removeDuplicates(self):
@@ -53,6 +53,11 @@ class TestSolution(unittest.TestCase):
         result = solution.hIndex(citations)
         self.assertEqual(result, 1)
 
+    def test_candy(self):
+        solution = CA()
+        citations = [1,2,87,87,87,2,1]
+        result = solution.candy(citations)
+        self.assertEqual(result, 13)
 
 if __name__ == '__main__':
     unittest.main()
