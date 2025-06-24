@@ -36,7 +36,7 @@ def process_data(df_for_process:pd.DataFrame):
     # 提取技能
     df_for_process['skills'] = df_for_process['cleaned_desc'].apply(lambda x: [skill for skill in SKILLS_DB if skill.lower() in x.lower() ])
     # 薪资信息
-    pattern = r'[\$¥]\s*\d[\d,]*k?(?:\s*-\s*[\$¥]?\s*\d[\d,]*k?)?'
+    pattern = r'([\$¥]\s*\d[\d,]*k?(?:\s*-\s*[\$¥]?\s*\d[\d,]*k?)?)'
     df_for_process['salary_info'] = df_for_process['cleaned_desc'].str.extract(pattern, expand=False)
 
     # 数据分析
