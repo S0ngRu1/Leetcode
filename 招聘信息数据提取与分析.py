@@ -36,7 +36,9 @@ def process_data(df_for_process:pd.DataFrame):
     # 提取技能
     df_for_process['skills'] = df_for_process['cleaned_desc'].apply(lambda x: [skill for skill in SKILLS_DB if skill.lower() in x.lower() ])
     # 薪资信息
-    df_for_process['salary_info'] = df_for_process['cleaned_desc'].apply(lambda x: re.findall(r'[$|¥]\d+,?\d*k?\s*-?\s*[$|¥]*\d*,?\d*k?',x)[0] if len(re.findall(r'[$|¥]\d+,?\d*k?-?\d*,?\d*k?',x)) > 0 else "None")
+    pattern = r'[\$¥]\s*\d[\d,]*k?(?:\s*-\s*[\$¥]?\s*\d[\d,]*k?)?'
+    df_for_process['salary_info'] = df_for_process['cleaned_desc'].str.extract(pattern, expand=False)
+
     # 数据分析
     all_skills = df.explode('skills')['skills'].dropna()
     top_5_skills = all_skills.value_counts().nlargest(5)
