@@ -74,21 +74,12 @@ if __name__ == '__main__':
 
     df = pd.DataFrame(data)
     df = parse_ingredients(df)
-    df_exploded = df.explode('parsed_ingredients').reset_index(drop=True)
-    # 使用 pd.json_normalize 是最高效、最推荐的方法
-    parsed_cols = pd.json_normalize(df_exploded['parsed_ingredients'])
-    df_final = df_exploded.join(parsed_cols)
-    # 清理最终的DataFrame，删除中间列
+    df_explode = df.explode('parsed_ingredients').reset_index(drop=True)
+    parse_ingr = pd.json_normalize(df_explode['parsed_ingredients'])
+    df_final = df_explode.join(parse_ingr)
     df_final = df_final.drop(columns=['ingredients', 'parsed_ingredients'])
-    print("--- 最终规整化的 DataFrame ---")
     print(df_final)
-    print("\n" + "=" * 50 + "\n")
-    # 找出使用次数最多的 5 种配料
-
-    top_5_ingredients = df_final['name'].value_counts().nlargest(5)
-    print("--- 使用最多的 5 种配料 ---")
-    print(top_5_ingredients)
-    print("\n" + "=" * 50 + "\n")
-    recipes_with_milk = df_final[df_final['name'].str.contains('milk', case=False, na=False)]['recipe_name'].unique()
-    print("--- 需要用到 'milk' 的菜谱 ---")
-    print(list(recipes_with_milk))
+    top_5_ingredient = df_final['name'].value_counts().nlargest(5)
+    print(top_5_ingredient)
+    milk_names = df_final[df_final['name'].str.contains('milk')]['recipe_name'].unique()
+    print(milk_names)
