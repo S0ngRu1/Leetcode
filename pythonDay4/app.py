@@ -3,22 +3,33 @@
 # @Author : CSR
 # @File : app.py.py
 
-from flask import Flask
+from flask import Flask, render_template
+import pandas as pd
 
-# 创建一个Flask应用实例
 app = Flask(__name__)
 
-# 定义一个“路由”（route），告诉Flask哪个URL应该触发哪个函数
-# '/' 表示网站的根目录（例如 http://127.0.0.1:5000/）
-# IP 地址：127.0.0.1（即本机）
-# 5000 是 Flask 默认使用的端口号。
+
 @app.route('/')
 def hello_world():
     """这个函数被称为“视图函数”(view function)"""
     return '<h1>Hello, Web World!</h1>'
 
-# 确保当脚本被直接执行时，才运行Web服务器
+@app.route('/index/')
+def index():
+    # 1. 使用pandas读取我们的电影数据
+    df = pd.read_csv('douban_top250_movies.csv')
+
+    # 2. 将整个DataFrame转换为HTML表格字符串
+    #    - classes: 为表格添加CSS类，方便后续美化（我们后面会用Bootstrap）
+    #    - index=False: 不显示DataFrame的索引列
+    movie_table = df.to_html(classes='table table-striped table-hover', index=False)
+
+    # 3. 渲染模板，并传递数据
+    #    - 'index.html': 我们要渲染的HTML文件名
+    #    - movie_table=movie_table: 将Python中的变量movie_table传递给HTML，
+    #      在HTML中它也叫'movie_table'
+    return render_template('index.html', movie_table=movie_table)
+
+
 if __name__ == '__main__':
-    # app.run() 启动服务器
-    # debug=True 表示开启“调试模式”，当代码有改动时服务器会自动重启，并提供详细的错误信息
     app.run(debug=True)

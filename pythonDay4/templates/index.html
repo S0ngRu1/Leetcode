@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>豆瓣电影Top250数据看板</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body { padding: 20px; }
+        h1, h2 { text-align: center; margin-bottom: 20px; }
+        img { max-width: 100%; height: auto; display: block; margin: 20px auto; border: 1px solid #ddd; border-radius: 4px; padding: 5px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>豆瓣电影Top250数据看板</h1>
+
+        <hr>
+
+        <h2>Top 15 电影评分</h2>
+        <img src="{{ url_for('static', filename='bar_chart.png') }}" alt="Top 15电影评分柱状图">
+
+        <h2>电影评分分布</h2>
+        <img src="{{ url_for('static', filename='histogram.png') }}" alt="电影评分分布直方图">
+
+        <hr>
+
+        <h2>完整数据列表</h2>
+        <div class="table-responsive">
+            {{ movie_table | safe }}
+        </div>
+    </div>
+</body>
+</html>
